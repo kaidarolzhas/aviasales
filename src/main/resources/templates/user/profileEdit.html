@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div th:insert="~{navbar.html :: navbar}"></div>
+
+    <div class="container">
+        <div class="row my-5">
+            <div class="col-8 offset-2 bg-body-tertiary px-5 pb-5 rounded-3">
+                <form th:method="PATCH" th:action="@{/profile}" th:object="${person}" enctype="multipart/form-data">
+
+                    <h1 class="text-center mt-5">Изменить профиль</h1>
+
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label"></label>
+                        <input class="form-control" type="file" id="formFile" name="file" >
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label class="form-label" for="firstname">Введите имя: </label>
+                        <input class="form-control" type="text" th:field="*{firstname}" id="firstname"/>
+                        <div style="color: red" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">firstname Errors</div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label class="form-label" for="lastname">Введите фамилию: </label>
+                        <input class="form-control" type="text" th:field="*{lastname}" id="lastname"/>
+                        <div style="color:red" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">lastname Error</div>
+                    </div>
+
+<!--                    <div class="form-group my-3">-->
+<!--                        <label class="form-label" for="username">Enter username: </label>-->
+<!--                        <input class="form-control" type="text" th:field="*{username}" id="username"/>-->
+<!--                        <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username Error</div>-->
+<!--                    </div>-->
+
+                    <input type="hidden" th:field="*{password}"/>
+                    <input type="hidden" th:field="*{role}"/>
+                    <input type="hidden" th:field="*{avatarImg}"/>
+                    <input type="hidden" th:field="*{id}"/>
+                    <input type="hidden" th:field="*{username}"/>
+
+                    <input class="btn btn-primary mt-3" type="submit" value="Обновить"/>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div th:insert="~{footer.html :: footer}"></div>
+</body>
+</html>
