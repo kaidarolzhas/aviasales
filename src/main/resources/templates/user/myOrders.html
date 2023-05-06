@@ -6,22 +6,22 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="bg-dark">
     <div th:insert="~{navbar.html :: navbar}"></div>
 
     <div class="container">
         <div class="row mt-5">
-            <div class="col-12 offset-0 d-flex justify-content-center flex-wrap text-center">
-                <h1 class="text-center my-3">Мои билеты</h1>
-                <table class="table table-bordered text-center">
+            <div class="col-10 offset-2 d-flex justify-content-center flex-wrap text-center">
+                <h1 class="text-center mt-3 mb-5">My tickets</h1>
+                <table class="table table-dark table-bordered text-center ">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Откуда</th>
-                            <th>Куда</th>
-                            <th>Количество</th>
-                            <th>Общая цена</th>
-                            <th>Cтатус</th>
+                            <th>From where</th>
+                            <th>To where</th>
+                            <th>Count</th>
+                            <th>Total price</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,6 +35,33 @@
                         </tr>
                     </tbody>
                 </table>
+
+                <div class="card my-3 bg-dark border border-light" style="width: 80%;" th:each="t: ${myOrders}" th:if="${!myOrders.isEmpty()}">
+                    <div class="card-body d-flex justify-content-between mx-3 my-3 align-middle">
+                        <div class="d-flex justify-content-evenly" style="width: 50%;">
+                            <div class="text-center my-auto">
+                                <h3 class="card-title text-light" th:text="${t.airPlaneTicket.departurePoint}">Card title</h3>
+                                <h4 class="card-text text-light py-2 light" th:text="${t.airPlaneTicket.departureTime.toLocalDate() + ' (' + t.airPlaneTicket.departureTime.toLocalTime() + ')'}">Card price</h4>
+                            </div>
+
+                            <p class="text-light my-auto">-></p>
+
+                            <div class="text-center my-auto">
+                                <h3 class="card-title text-light" th:text="${t.arrivalPoint}">Card title</h3>
+                                <h4 class="card-text py-2 text-light" th:text="${t.arrivalTime.airPlaneTicket.toLocalDate()  + ' (' + t.airPlaneTicket.arrivalTime.toLocalTime() + ')'}">Card price</h4>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h5 class="text-light" th:text="${'Price: ' + t.totalPrice.price + 'tg.'}"></h5>
+                            <h5 class="text-light" th:text="${'Seats left: ' + t.count}"></h5>
+                        </div>
+
+<!--                        <form th:action="@{/tickets/ticketOrder/{id}(id=${t.getId()})}" class="my-auto">-->
+<!--                            <button type="submit" class="btn btn-outline-success" style="height: 50px; width: 150px;" th:if="${t.count>0}">BUY TICKET</button>-->
+<!--                        </form>-->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
