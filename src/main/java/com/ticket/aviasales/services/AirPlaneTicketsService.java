@@ -1,7 +1,7 @@
 package com.ticket.aviasales.services;
 
 import com.ticket.aviasales.models.AirPlaneTicket;
-import com.ticket.aviasales.repositories.TicketRepository;
+import com.ticket.aviasales.repositories.AirPlaneTicketsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,11 +11,11 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class TicketsService {
-    private final TicketRepository ticketRepository;
+public class AirPlaneTicketsService {
+    private final AirPlaneTicketsRepository ticketRepository;
 
     @Autowired
-    public TicketsService(TicketRepository ticketRepository) {
+    public AirPlaneTicketsService(AirPlaneTicketsRepository ticketRepository) {
         this.ticketRepository = ticketRepository;
     }
 

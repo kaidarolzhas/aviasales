@@ -1,7 +1,7 @@
-package com.ticket.aviasales.util;
+package com.ticket.aviasales.validations;
 
 import com.ticket.aviasales.models.AirPlaneTicket;
-import com.ticket.aviasales.services.TicketsService;
+import com.ticket.aviasales.services.AirPlaneTicketsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -11,10 +11,10 @@ import java.time.LocalDateTime;
 
 @Component
 public class TicketValidator implements Validator {
-    private final TicketsService ticketsService;
+    private final AirPlaneTicketsService ticketsService;
 
     @Autowired
-    public TicketValidator(TicketsService ticketsService) {
+    public TicketValidator(AirPlaneTicketsService ticketsService) {
         this.ticketsService = ticketsService;
     }
 

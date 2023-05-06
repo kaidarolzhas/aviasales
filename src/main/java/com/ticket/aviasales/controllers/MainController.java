@@ -3,11 +3,10 @@ package com.ticket.aviasales.controllers;
 import com.ticket.aviasales.models.AirPlaneTicket;
 import com.ticket.aviasales.models.TicketOrder;
 import com.ticket.aviasales.models.Person;
-import com.ticket.aviasales.services.OrdersService;
+import com.ticket.aviasales.services.TicketOrdersService;
 import com.ticket.aviasales.services.PeopleService;
-import com.ticket.aviasales.services.TicketsService;
+import com.ticket.aviasales.services.AirPlaneTicketsService;
 import jakarta.validation.Valid;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,9 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -43,11 +39,11 @@ public class MainController {
     private String uploadPath;
 
     private final PeopleService peopleService;
-    private final TicketsService ticketsService;
-    private final OrdersService ordersService;
+    private final AirPlaneTicketsService ticketsService;
+    private final TicketOrdersService ordersService;
 
     @Autowired
-    public MainController(PeopleService peopleService, TicketsService ticketsService, OrdersService ordersService) {
+    public MainController(PeopleService peopleService, AirPlaneTicketsService ticketsService, TicketOrdersService ordersService) {
         this.peopleService = peopleService;
         this.ticketsService = ticketsService;
         this.ordersService = ordersService;
@@ -180,20 +176,6 @@ public class MainController {
                          @RequestParam(name = "file") MultipartFile file) {
         if (bindingResult.hasErrors()) {
             return "user/profileEdit";
-        }
-
-        if(!file.isEmpty() && (file.getContentType().equals("image/jpeg") || file.getContentType().equals("image/png"))) {
-            try {
-                String picName = DigestUtils.sha1Hex("img" + person.getUsername() + "ava");
-
-                byte[] bytes = file.getBytes();
-                Path path = Paths.get(uploadPath + picName + ".jpg");
-                Files.write(path, bytes);
-
-                person.setAvatarImg(picName);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
 
         peopleService.updatePerson(person.getId(), person);

@@ -2,9 +2,9 @@ package com.ticket.aviasales.controllers;
 
 import com.ticket.aviasales.models.AirPlaneTicket;
 import com.ticket.aviasales.models.TicketOrder;
-import com.ticket.aviasales.services.OrdersService;
-import com.ticket.aviasales.services.TicketsService;
-import com.ticket.aviasales.util.TicketValidator;
+import com.ticket.aviasales.services.TicketOrdersService;
+import com.ticket.aviasales.services.AirPlaneTicketsService;
+import com.ticket.aviasales.validations.TicketValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,12 +19,12 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
 
-    private final TicketsService ticketsService;
-    private final OrdersService ordersService;
+    private final AirPlaneTicketsService ticketsService;
+    private final TicketOrdersService ordersService;
     private final TicketValidator ticketValidator;
 
     @Autowired
-    public AdminController(TicketsService ticketsService, OrdersService ordersService, TicketValidator ticketValidator) {
+    public AdminController(AirPlaneTicketsService ticketsService, TicketOrdersService ordersService, TicketValidator ticketValidator) {
         this.ticketsService = ticketsService;
         this.ordersService = ordersService;
         this.ticketValidator = ticketValidator;

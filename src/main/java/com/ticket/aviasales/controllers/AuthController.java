@@ -2,7 +2,7 @@ package com.ticket.aviasales.controllers;
 
 import com.ticket.aviasales.models.Person;
 import com.ticket.aviasales.security.RegistrationService;
-import com.ticket.aviasales.util.PersonValidator;
+import com.ticket.aviasales.validations.PersonValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

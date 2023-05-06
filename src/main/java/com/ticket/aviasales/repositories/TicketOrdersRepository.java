@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface OrdersRepository extends JpaRepository<TicketOrder, Integer> {
+public interface TicketOrdersRepository extends JpaRepository<TicketOrder, Integer> {
     List<TicketOrder> findByPerson (Person person);
 }

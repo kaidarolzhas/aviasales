@@ -1,4 +1,4 @@
-package com.ticket.aviasales.util;
+package com.ticket.aviasales.validations;
 
 import com.ticket.aviasales.models.Person;
 import com.ticket.aviasales.security.PersonDetailsService;

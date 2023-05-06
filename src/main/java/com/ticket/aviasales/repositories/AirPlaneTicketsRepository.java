@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TicketRepository extends JpaRepository<AirPlaneTicket, Integer> {
+public interface AirPlaneTicketsRepository extends JpaRepository<AirPlaneTicket, Integer> {
     List<AirPlaneTicket> findByDeparturePointAndArrivalPoint(String departure, String arrival);
 }

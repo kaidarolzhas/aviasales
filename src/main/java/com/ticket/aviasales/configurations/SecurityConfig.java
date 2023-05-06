@@ -1,4 +1,4 @@
-package com.ticket.aviasales.config;
+package com.ticket.aviasales.configurations;
 
 import com.ticket.aviasales.security.PersonDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
