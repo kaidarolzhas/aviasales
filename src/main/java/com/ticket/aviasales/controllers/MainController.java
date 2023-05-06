@@ -146,8 +146,7 @@ public class MainController {
     }
 
     @PatchMapping("/profile")
-    public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult,
-                         @RequestParam(name = "file") MultipartFile file) {
+    public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "user/profileEdit";
         }

@@ -51,7 +51,6 @@ public class AdminController {
     public String main(Model model) {
         List<AirPlaneTicket> airPlaneTicketList = ticketsService.findAllTicket();
         checkStatus(airPlaneTicketList);
-
         model.addAttribute("allTicket", airPlaneTicketList);
         return "admin/index";
     }
