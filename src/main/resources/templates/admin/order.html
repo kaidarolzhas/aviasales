@@ -16,20 +16,19 @@
             <div class="row mt-5">
                 <div class="col-12 offset-0 d-flex justify-content-center flex-wrap">
                     <h1 class="text-center" style="width: 100%;">Orders</h1>
-                    <div class="card my-3 bg-dark" style="width: 95%;" th:each="p: ${ticketOrders}">
+                    <div class="card my-3 bg-dark" style="width: 95%;" th:each="p: ${orders}">
                             <div class="d-flex justify-content-evenly" style="width: 50%;">
                                 <div>
-                                    <h3 class="card-title text-white" th:text="${p.getTicket().getDeparturePoint()}" >Card title</h3>
+                                    <h3 class="card-title text-white" th:text="${p.getAirPlaneTicket().getDeparturePoint()}" >Card title</h3>
                                     <h4 class="card-text py-2 text-white" >Card price</h4>
                                 </div>
                                 <div>
-                                    <h3 class="card-title text-white" th:text="${p.getTicket().getArrivalPoint()}">Card title</h3>
-                                    <h4 class="card-text py-2 text-white" th:text=>Card price</h4>
+                                    <h3 class="card-title text-white" th:text="${p.getAirPlaneTicket().getArrivalPoint()}">Card title</h3>]
                                 </div>
                             </div>
                             <div>
                                 <p class="card-title text-white" th:text="${'Bought by' + p.getPerson().getUsername()}"></p>
-                                <p class="card-text py-2 text-white" th:text="${t.type}">Card price</p>
+                                <p class="card-text py-2 text-white" th:text="${p.getAirPlaneTicket().getType()}">Card price</p>
                             </div>
                             <div class="text-white">
                                 <h3 th:text="${p.getTotalPrice() + 'tg.'}"></h3>
