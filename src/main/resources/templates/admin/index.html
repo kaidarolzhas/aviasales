@@ -14,7 +14,7 @@
         <div class="col-12 offset-0 d-flex justify-content-center flex-wrap">
           <h1 class="text-center" style="width: 100%;">Все билеты</h1>
           <div class="card my-3 bg-dark" style="width: 95%;" th:each="t: ${allTicket}" th:if="${!allTicket.isEmpty()}">
-            <div class="card-body d-flex justify-content-between mx-3 my-3" th:if="${t.getStatus().equals('ACTIVE')}">
+            <div class="card-body d-flex justify-content-between mx-3 my-3">
               <div class="d-flex justify-content-evenly" style="width: 50%;">
                 <div>
                   <h3 class="card-title text-white" th:text="${t.departurePoint + '(' + t.departureTime.toLocalTime() + ')'}">Card title</h3>
