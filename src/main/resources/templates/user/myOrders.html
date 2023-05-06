@@ -9,32 +9,10 @@
 <body class="bg-dark">
     <div th:insert="~{navbar.html :: navbar}"></div>
 
-    <div class="container">
+    <div class="container-sm">
         <div class="row mt-5">
-            <div class="col-10 offset-2 d-flex justify-content-center flex-wrap text-center">
-                <h1 class="text-center mt-3 mb-5">My tickets</h1>
-                <table class="table table-dark table-bordered text-center ">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>From where</th>
-                            <th>To where</th>
-                            <th>Count</th>
-                            <th>Total price</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="p: ${myOrders}">
-                            <td th:text="${p.getId()}"></td>
-                            <td th:text="${p.getTicket().getDeparturePoint()}"></td>
-                            <td th:text="${p.getTicket().getArrivalPoint()}"></td>
-                            <td th:text="${p.getCount()}"></td>
-                            <td th:text="${p.getTotalPrice()}"></td>
-                            <td th:text="${p.getTicket().getStatus()}"></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="col-12 offset-0 d-flex justify-content-center flex-wrap">
+                <h1 class="text-center mt-3 mb-5 text-light" style="width: 100%">My tickets</h1>
 
                 <div class="card my-3 bg-dark border border-light" style="width: 80%;" th:each="t: ${myOrders}" th:if="${!myOrders.isEmpty()}">
                     <div class="card-body d-flex justify-content-between mx-3 my-3 align-middle">
@@ -47,19 +25,22 @@
                             <p class="text-light my-auto">-></p>
 
                             <div class="text-center my-auto">
-                                <h3 class="card-title text-light" th:text="${t.arrivalPoint}">Card title</h3>
-                                <h4 class="card-text py-2 text-light" th:text="${t.arrivalTime.airPlaneTicket.toLocalDate()  + ' (' + t.airPlaneTicket.arrivalTime.toLocalTime() + ')'}">Card price</h4>
+                                <h3 class="card-title text-light" th:text="${t.airPlaneTicket.arrivalPoint}">Card title</h3>
+                                <h4 class="card-text py-2 text-light" th:text="${t.airPlaneTicket.arrivalTime.toLocalDate()  + ' (' + t.airPlaneTicket.arrivalTime.toLocalTime() + ')'}">Card price</h4>
                             </div>
                         </div>
 
-                        <div>
-                            <h5 class="text-light" th:text="${'Price: ' + t.totalPrice.price + 'tg.'}"></h5>
-                            <h5 class="text-light" th:text="${'Seats left: ' + t.count}"></h5>
+                        <div class="my-auto">
+                            <h5 class="text-light" th:text="${'Total price: ' + t.totalPrice + 'tg.'}"></h5>
+                            <h5 class="text-light" th:text="${'Place count: ' + t.count}"></h5>
+                            <h5 class="text-light" th:text="${'Type: ' + t.airPlaneTicket.type}"></h5>
+                            <h5 class="text-light" th:text="${'Airline: ' + t.airPlaneTicket.airLine}"></h5>
                         </div>
 
-<!--                        <form th:action="@{/tickets/ticketOrder/{id}(id=${t.getId()})}" class="my-auto">-->
-<!--                            <button type="submit" class="btn btn-outline-success" style="height: 50px; width: 150px;" th:if="${t.count>0}">BUY TICKET</button>-->
-<!--                        </form>-->
+                        <div class="my-auto">
+                            <h2 class="text-success" th:if="${t.getAirPlaneTicket().getStatus().equals('ACTIVE')}">ACTIVE</h2>
+                            <h2 class="text-danger" th:if="${t.getAirPlaneTicket().getStatus().equals('OVERDUE')}">OVERDUE</h2>
+                        </div>
                     </div>
                 </div>
             </div>
