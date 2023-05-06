@@ -13,7 +13,7 @@
     <div class="container">
         <div class="row my-5">
             <div class="col-10 offset-1 bg-body-tertiary px-5 pb-5 rounded-3">
-                <form th:method="PATCH" th:action="@{/admin/update/{id}(id=${ticket.id})}" th:object="${ticket}">
+                <form th:method="PATCH" th:action="@{/admin/update/{id}(id=${airPlaneTicket.id})}" th:object="${airPlaneTicket}">
                     <h1 class="text-center mt-5">Изменить</h1>
                     <div class="d-flex justify-content-center flex-wrap">
                         <div class="my-3 px-3" style="width: 50%">

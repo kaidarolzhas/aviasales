@@ -1,7 +1,7 @@
 package com.ticket.aviasales.controllers;
 
-import com.ticket.aviasales.models.Order;
-import com.ticket.aviasales.models.Ticket;
+import com.ticket.aviasales.models.AirPlaneTicket;
+import com.ticket.aviasales.models.TicketOrder;
 import com.ticket.aviasales.services.OrdersService;
 import com.ticket.aviasales.services.TicketsService;
 import com.ticket.aviasales.util.TicketValidator;
@@ -31,28 +31,28 @@ public class AdminController {
     }
 
     @GetMapping("/add")
-    public String newTicket(@ModelAttribute("ticket") Ticket ticket) {
+    public String newTicket(@ModelAttribute("ticket") AirPlaneTicket airPlaneTicket) {
         return "admin/add";
     }
 
     @PostMapping("/add")
-    public String create(@ModelAttribute("ticket") @Valid Ticket ticket, BindingResult bindingResult) {
-        ticketValidator.validate(ticket, bindingResult);
+    public String create(@ModelAttribute("ticket") @Valid AirPlaneTicket airPlaneTicket, BindingResult bindingResult) {
+        ticketValidator.validate(airPlaneTicket, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "admin/add";
         }
 
-        ticketsService.saveTicket(ticket);
+        ticketsService.saveTicket(airPlaneTicket);
         return "redirect:/";
     }
 
     @GetMapping()
     public String main(Model model) {
-        List<Ticket> ticketList = ticketsService.findAllTicket();
-        checkStatus(ticketList);
+        List<AirPlaneTicket> airPlaneTicketList = ticketsService.findAllTicket();
+        checkStatus(airPlaneTicketList);
 
-        model.addAttribute("allTicket", ticketList);
+        model.addAttribute("allTicket", airPlaneTicketList);
         return "admin/index";
     }
 
@@ -70,39 +70,39 @@ public class AdminController {
     }
 
     @PatchMapping("/update/{id}")
-    public String update(@ModelAttribute("ticket") @Valid Ticket ticket, BindingResult bindingResult,
+    public String update(@ModelAttribute("ticket") @Valid AirPlaneTicket airPlaneTicket, BindingResult bindingResult,
                          @PathVariable("id") int id) {
         if (bindingResult.hasErrors()) {
             return "admin/update";
         }
 
-        ticketsService.updateTicket(id, ticket);
+        ticketsService.updateTicket(id, airPlaneTicket);
         return "redirect:/";
     }
 
     @GetMapping("/order")
     public String allOrder(Model model) {
-        List<Order> orders = ordersService.findAllOrder();
+        List<TicketOrder> ticketOrders = ordersService.findAllOrder();
 
-        for (Order order: orders) {
-            if(order.getTicket().getDepartureTime().compareTo(LocalDateTime.now()) > 0){
-                order.getTicket().setStatus("ACTIVE");
+        for (TicketOrder ticketOrder : ticketOrders) {
+            if(ticketOrder.getAirPlaneTicket().getDepartureTime().compareTo(LocalDateTime.now()) > 0){
+                ticketOrder.getAirPlaneTicket().setStatus("ACTIVE");
             } else {
-                order.getTicket().setStatus("OVERDUE");
+                ticketOrder.getAirPlaneTicket().setStatus("OVERDUE");
             }
         }
 
-        model.addAttribute("orders", orders);
+        model.addAttribute("orders", ticketOrders);
 
         return "admin/order";
     }
 
-    private void checkStatus(List<Ticket> ticketList){
-        for (Ticket ticket: ticketList) {
-            if(ticket.getDepartureTime().compareTo(LocalDateTime.now()) > 0){
-                ticket.setStatus("ACTIVE");
+    private void checkStatus(List<AirPlaneTicket> airPlaneTicketList){
+        for (AirPlaneTicket airPlaneTicket : airPlaneTicketList) {
+            if(airPlaneTicket.getDepartureTime().compareTo(LocalDateTime.now()) > 0){
+                airPlaneTicket.setStatus("ACTIVE");
             } else {
-                ticket.setStatus("OVERDUE");
+                airPlaneTicket.setStatus("OVERDUE");
             }
         }
     }

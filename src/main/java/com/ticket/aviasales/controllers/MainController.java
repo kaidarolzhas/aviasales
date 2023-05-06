@@ -1,8 +1,8 @@
 package com.ticket.aviasales.controllers;
 
-import com.ticket.aviasales.models.Order;
+import com.ticket.aviasales.models.AirPlaneTicket;
+import com.ticket.aviasales.models.TicketOrder;
 import com.ticket.aviasales.models.Person;
-import com.ticket.aviasales.models.Ticket;
 import com.ticket.aviasales.services.OrdersService;
 import com.ticket.aviasales.services.PeopleService;
 import com.ticket.aviasales.services.TicketsService;
@@ -53,13 +53,13 @@ public class MainController {
         this.ordersService = ordersService;
     }
 
-    private void checkStatus(List<Ticket> ticketList){
-        for (Ticket ticket: ticketList) {
-            ticket.setTime(java.time.Duration.between(ticket.getDepartureTime(), ticket.getArrivalTime()).toHours());
-            if(ticket.getDepartureTime().compareTo(LocalDateTime.now()) > 0){
-                ticket.setStatus("ACTIVE");
+    private void checkStatus(List<AirPlaneTicket> airPlaneTicketList){
+        for (AirPlaneTicket airPlaneTicket : airPlaneTicketList) {
+            airPlaneTicket.setTime(java.time.Duration.between(airPlaneTicket.getDepartureTime(), airPlaneTicket.getArrivalTime()).toHours());
+            if(airPlaneTicket.getDepartureTime().compareTo(LocalDateTime.now()) > 0){
+                airPlaneTicket.setStatus("ACTIVE");
             } else {
-                ticket.setStatus("OVERDUE");
+                airPlaneTicket.setStatus("OVERDUE");
             }
         }
     }
@@ -78,20 +78,20 @@ public class MainController {
 
     @GetMapping("/tickets")
     public String tickets(Model m) {
-        List<Ticket> ticketList = ticketsService.findAllTicket();
-        checkStatus(ticketList);
+        List<AirPlaneTicket> airPlaneTicketList = ticketsService.findAllTicket();
+        checkStatus(airPlaneTicketList);
 
-        m.addAttribute("tickets", ticketList);
+        m.addAttribute("tickets", airPlaneTicketList);
 
         return "user/tickets.html";
     }
 
     @GetMapping("/search")
     public String search(Model m) {
-        List<Ticket> ticketList = ticketsService.findAllTicket();
-        checkStatus(ticketList);
+        List<AirPlaneTicket> airPlaneTicketList = ticketsService.findAllTicket();
+        checkStatus(airPlaneTicketList);
 
-        m.addAttribute("ticket", ticketList);
+        m.addAttribute("ticket", airPlaneTicketList);
 
         return "user/search.html";
     }
@@ -99,17 +99,17 @@ public class MainController {
     @PostMapping ("/search")
     public String searchValue(Model m, @RequestParam("search_value1") String search_value1, @RequestParam("search_value2") String search_value2) {
 
-        List<Ticket> ticketList = ticketsService.findAllTicket();
-        checkStatus(ticketList);
+        List<AirPlaneTicket> airPlaneTicketList = ticketsService.findAllTicket();
+        checkStatus(airPlaneTicketList);
 
         if ((search_value1!=null && search_value2!=null) || (!Objects.equals(search_value1, "") && !Objects.equals(search_value2, "")) ) {
 
-            List<Ticket> ticketList2 = ticketsService.findByDeparturePointAndArrivalPoint(search_value1, search_value2);
-            checkStatus(ticketList2);
-            m.addAttribute("ticket", ticketList2);
+            List<AirPlaneTicket> airPlaneTicketList2 = ticketsService.findByDeparturePointAndArrivalPoint(search_value1, search_value2);
+            checkStatus(airPlaneTicketList2);
+            m.addAttribute("ticket", airPlaneTicketList2);
         }
         else{
-            m.addAttribute("ticket", ticketList);
+            m.addAttribute("ticket", airPlaneTicketList);
         }
 
         return "user/search.html";
@@ -120,17 +120,17 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Person person = peopleService.findByUsername(authentication.getName());
 
-        List<Order> orders = ordersService.findByPerson(person);
+        List<TicketOrder> ticketOrders = ordersService.findByPerson(person);
 
-        for (Order order: orders) {
-            if(order.getTicket().getDepartureTime().compareTo(LocalDateTime.now()) > 0){
-                order.getTicket().setStatus("ACTIVE");
+        for (TicketOrder ticketOrder : ticketOrders) {
+            if(ticketOrder.getAirPlaneTicket().getDepartureTime().compareTo(LocalDateTime.now()) > 0){
+                ticketOrder.getAirPlaneTicket().setStatus("ACTIVE");
             } else {
-                order.getTicket().setStatus("OVERDUE");
+                ticketOrder.getAirPlaneTicket().setStatus("OVERDUE");
             }
         }
 
-        model.addAttribute("myOrders", orders);
+        model.addAttribute("myOrders", ticketOrders);
 
         return "user/myOrders";
     }
@@ -201,7 +201,7 @@ public class MainController {
     }
 
     @GetMapping("/tickets/order/{id}")
-    public String order(Model model, @PathVariable("id") int id, @ModelAttribute("order") Order order) {
+    public String order(Model model, @PathVariable("id") int id, @ModelAttribute("order") TicketOrder ticketOrder) {
         model.addAttribute("ticket_id", ticketsService.findOne(id).getId());
         model.addAttribute("ticket_count", ticketsService.findOne(id).getCount());
 
@@ -209,7 +209,7 @@ public class MainController {
     }
 
     @PostMapping(value = "/tickets/order")
-    public String addOrder(@ModelAttribute("order") @Valid Order order, BindingResult bindingResult,
+    public String addOrder(@ModelAttribute("order") @Valid TicketOrder ticketOrder, BindingResult bindingResult,
                            @RequestParam("count") int count,
                            @RequestParam("ticket_id") int id){
         if (bindingResult.hasErrors()) {
@@ -219,13 +219,13 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Person person = peopleService.findByUsername(authentication.getName());
 
-        order.setCount(count);
-        order.setPerson(person);
-        order.setTotalPrice(count * ticketsService.findOne(id).getPrice());
-        order.setTicket(ticketsService.findOne(id));
-        order.getTicket().setCount(ticketsService.findOne(id).getCount() - count);
+        ticketOrder.setCount(count);
+        ticketOrder.setPerson(person);
+        ticketOrder.setTotalPrice(count * ticketsService.findOne(id).getPrice());
+        ticketOrder.setAirPlaneTicket(ticketsService.findOne(id));
+        ticketOrder.getAirPlaneTicket().setCount(ticketsService.findOne(id).getCount() - count);
 
-        ordersService.saveOrder(order);
+        ordersService.saveOrder(ticketOrder);
 
         return "redirect:/";
     }

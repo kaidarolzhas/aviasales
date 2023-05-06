@@ -18,27 +18,27 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotEmpty(message = "Имя не должно быть пустым")
-    @Size(min = 2, max = 100, message = "Имя должно быть от 2 до 100 символов длиной")
+    @NotEmpty(message = "The name should not be empty")
+    @Size(min = 2, max = 100, message = "The name must be between 2 and 100 characters long")
     @Column(name = "firstname")
     private String firstname;
 
-    @NotEmpty(message = "Фамилия не должно быть пустым")
-    @Size(min = 2, max = 100, message = "Фамилия должно быть от 2 до 100 символов длиной")
+    @NotEmpty(message = "The surname should not be empty")
+    @Size(min = 2, max = 100, message = "The surname must be between 2 and 100 characters long")
     @Column(name = "lastname")
     private String lastname;
 
-    @NotEmpty(message = "Логин не должно быть пустым")
-    @Size(min = 2, max = 100, message = "Логин должно быть от 2 до 100 символов длиной")
+    @NotEmpty(message = "The login should not be empty")
+    @Size(min = 2, max = 100, message = "The login must be between 2 and 100 characters long")
     @Column(name = "username")
     private String username;
 
-    @NotEmpty(message = "Пароль не должно быть пустым")
+    @NotEmpty(message = "The password should not be empty")
     @Column(name = "password")
     private String password;
 
     @Column(name = "role")
     private String role;
 
-    private String avatarImg;
+    private String dateOfBorn;
 }

@@ -36,7 +36,7 @@
                 <p th:text="${'осталось ' + t.count}"></p>
               </div>
 
-              <form th:action="@{/tickets/order/{id}(id=${t.getId()})}">
+              <form th:action="@{/tickets/ticketOrder/{id}(id=${t.getId()})}">
                 <button type="submit" class="btn btn-success" style="height: 50px; width: 100px;" th:if="${t.count>0}">Купить</button>
               </form>
             </div>

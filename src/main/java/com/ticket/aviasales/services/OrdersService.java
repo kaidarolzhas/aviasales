@@ -1,6 +1,6 @@
 package com.ticket.aviasales.services;
 
-import com.ticket.aviasales.models.Order;
+import com.ticket.aviasales.models.TicketOrder;
 import com.ticket.aviasales.models.Person;
 import com.ticket.aviasales.repositories.OrdersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +20,15 @@ public class OrdersService {
     }
 
     @Transactional
-    public void saveOrder(Order order){
-        ordersRepository.save(order);
+    public void saveOrder(TicketOrder ticketOrder){
+        ordersRepository.save(ticketOrder);
     }
 
-    public List<Order> findByPerson(Person person) {
+    public List<TicketOrder> findByPerson(Person person) {
         return ordersRepository.findByPerson(person);
     }
 
-    public List<Order> findAllOrder() {
+    public List<TicketOrder> findAllOrder() {
         return ordersRepository.findAll();
     }
 }

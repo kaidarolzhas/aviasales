@@ -1,6 +1,6 @@
 package com.ticket.aviasales.services;
 
-import com.ticket.aviasales.models.Ticket;
+import com.ticket.aviasales.models.AirPlaneTicket;
 import com.ticket.aviasales.repositories.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,20 +20,20 @@ public class TicketsService {
     }
 
     @Transactional
-    public void saveTicket(Ticket ticket) {
-        ticketRepository.save(ticket);
+    public void saveTicket(AirPlaneTicket airPlaneTicket) {
+        ticketRepository.save(airPlaneTicket);
     }
 
-    public List<Ticket> findAllTicket() {
+    public List<AirPlaneTicket> findAllTicket() {
         return ticketRepository.findAll();
     }
 
-    public List<Ticket> findByDeparturePointAndArrivalPoint(String departure, String arrival){
+    public List<AirPlaneTicket> findByDeparturePointAndArrivalPoint(String departure, String arrival){
         return ticketRepository.findByDeparturePointAndArrivalPoint(departure, arrival);
     }
 
-    public Ticket findOne(int id){
-        Optional<Ticket> ticket = ticketRepository.findById(id);
+    public AirPlaneTicket findOne(int id){
+        Optional<AirPlaneTicket> ticket = ticketRepository.findById(id);
         return ticket.orElse(null);
     }
 
@@ -43,8 +43,8 @@ public class TicketsService {
     }
 
     @Transactional
-    public void updateTicket(int id, Ticket ticket){
-        ticket.setId(id);
-        ticketRepository.save(ticket);
+    public void updateTicket(int id, AirPlaneTicket airPlaneTicket){
+        airPlaneTicket.setId(id);
+        ticketRepository.save(airPlaneTicket);
     }
 }

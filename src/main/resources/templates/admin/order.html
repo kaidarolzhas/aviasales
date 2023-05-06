@@ -27,7 +27,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="p: ${orders}">
+                    <tr th:each="p: ${ticketOrders}">
                         <td th:text="${p.getId()}"></td>
                         <td th:text="${p.getPerson().getUsername()}"></td>
                         <td th:text="${p.getTicket().getDeparturePoint()}"></td>

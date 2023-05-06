@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
+public class TicketOrder {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +24,8 @@ public class Order {
     @Column(name = "count")
     private int count;
 
-    @NotEmpty(message = "Номер телефона не должно быть пустым")
-    @Size(min = 2, max = 100, message = "Номер телефона должно быть от 2 до 100 символов длиной")
+    @NotEmpty(message = "The number of phone must not be a empty")
+    @Size(min = 2, max = 100, message = "The number of phone must be around 2 and 100")
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
@@ -35,5 +35,5 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "ticket_id", referencedColumnName = "id")
-    private Ticket ticket;
+    private AirPlaneTicket airPlaneTicket;
 }
