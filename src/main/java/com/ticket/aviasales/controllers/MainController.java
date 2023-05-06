@@ -29,14 +29,7 @@ import java.util.Objects;
 @Controller
 public class MainController {
 
-    @Value("${file.img.viewPath}")
-    private String viewPath;
 
-    @Value("${file.img.defaultPicture}")
-    private String defaultPicture;
-
-    @Value("${file.img.uploadPath}")
-    private String uploadPath;
 
     private final PeopleService peopleService;
     private final AirPlaneTicketsService ticketsService;
@@ -131,25 +124,6 @@ public class MainController {
         return "user/myOrders";
     }
 
-    @GetMapping(value = "/view/{url}", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
-    public @ResponseBody byte[] viewPicture(@PathVariable(name = "url") String url) throws IOException {
-        String pictureURL = viewPath + defaultPicture;
-
-        if(url != null && !url.equals("null")) {
-            pictureURL = viewPath + url + ".jpg";
-        }
-        InputStream in;
-
-        try {
-            ClassPathResource resource = new ClassPathResource(pictureURL);
-            in = resource.getInputStream();
-        } catch (Exception e) {
-            ClassPathResource resource = new ClassPathResource(viewPath + defaultPicture);
-            in = resource.getInputStream();
-            e.printStackTrace();
-        }
-        return IOUtils.toByteArray(in);
-    }
 
     @GetMapping(value = "/profile")
     public String myProfile(Model model){
