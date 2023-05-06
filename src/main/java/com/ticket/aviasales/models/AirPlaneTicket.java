@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Data
@@ -63,4 +64,7 @@ public class AirPlaneTicket {
     private String status;
 
     private Long time;
+
+    @OneToMany(mappedBy = "airPlaneTicket", cascade = CascadeType.ALL)
+    private List<TicketOrder> orders;
 }

@@ -44,8 +44,8 @@
                 <h5 class="text-light" th:text="${'Price: ' + t.price + 'tg.'}"></h5>
                 <h5 class="text-light" th:text="${'Seats left: ' + t.count}"></h5>
                 <h5 class="text-light" th:text="'Time: ' + ${t.time} + 'h.'"></h5>
-                <h5 class="text-light" th:text="${'Type: ' + t.airPlaneTicket.type}"></h5>
-                <h5 class="text-light" th:text="${'Airline: ' + t.airPlaneTicket.airLine}"></h5>
+                <h5 class="text-light" th:text="${'Type: ' + t.type}"></h5>
+                <h5 class="text-light" th:text="${'Airline: ' + t.airLine}"></h5>
               </div>
 
               <form th:action="@{/tickets/order/{id}(id=${t.getId()})}" class="my-auto">

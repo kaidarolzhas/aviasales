@@ -98,6 +98,7 @@ public class AdminController {
 
     private void checkStatus(List<AirPlaneTicket> airPlaneTicketList){
         for (AirPlaneTicket airPlaneTicket : airPlaneTicketList) {
+            airPlaneTicket.setTime(java.time.Duration.between(airPlaneTicket.getDepartureTime(), airPlaneTicket.getArrivalTime()).toHours());
             if(airPlaneTicket.getDepartureTime().compareTo(LocalDateTime.now()) > 0){
                 airPlaneTicket.setStatus("ACTIVE");
             } else {

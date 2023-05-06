@@ -11,7 +11,7 @@
 
         <div class="container bd-dark">
             <div class="row my-5 bd-dark">
-                <div class="col-8 offset-2 bg-dark px-5 pb-5 rounded-3 bd-dark">
+                <div class="col-8 offset-2 bg-dark border border-light px-5 pb-5 rounded-3 bd-dark">
                     <form th:method="POST" th:action="@{/admin/add}" th:object="${ticket}">
                         <h1 class="text-center mt-5 text-white">Add Ticket</h1>
 
@@ -47,7 +47,7 @@
                         </div>
                         <div class="form-group mt-3">
                             <label for="type" class="text-white">>Enter type: </label>
-                            <input class="form-control" type="number" th:field="*{type}" id="type">
+                            <input class="form-control" type="text" th:field="*{type}" id="type">
                             <div style="color:red" th:if="${#fields.hasErrors('count')}" th:errors="*{type}">count Error</div>
                         </div>
                         <div class="form-group mt-3">
@@ -62,7 +62,7 @@
                             <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">price Error</div>
                         </div>
                         <div class="form-group">
-                            <input class="btn btn-success mt-2" type="submit" value="Создать"/>
+                            <input class="btn btn-success mt-2" type="submit" value="Create"/>
                         </div>
                     </form>
                 </div>

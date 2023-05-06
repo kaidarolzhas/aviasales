@@ -7,29 +7,19 @@ import com.ticket.aviasales.services.TicketOrdersService;
 import com.ticket.aviasales.services.PeopleService;
 import com.ticket.aviasales.services.AirPlaneTicketsService;
 import jakarta.validation.Valid;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
 @Controller
 public class MainController {
-
-
 
     private final PeopleService peopleService;
     private final AirPlaneTicketsService ticketsService;
